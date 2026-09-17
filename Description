@@ -1,0 +1,15 @@
+MovieSnack — a web application that randomly pairs food with movies based on their genre. Whether you're watching cartoons and craving gummy bears, or diving into a horror film with a plate of steak, MovieSnack suggests the perfect snack to match the mood of your movie night.
+
+Features:
+
+Random food selection based on movie genre
+
+Genre-based pairing logic (e.g., candy for animation, meat for horror)
+
+Simple, intuitive web interface
+
+Extensible food-genre database
+
+Tech Stack: (to be defined)
+
+Goal: Make every movie night a little more fun by removing the "what should I eat?" question — and adding a thematic twist to it.
