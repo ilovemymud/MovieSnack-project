@@ -1,0 +1,204 @@
+/* ===== Базовые настройки ===== */
+:root {
+  --ink: #1b1f3b;        /* тёмный синий — кинозал */
+  --ticket: #f2c14e;     /* жёлтый — билет */
+  --tomato: #e4572e;     /* акцент — кнопки */
+  --paper: #eef1f8;      /* фон страницы */
+  --white: #ffffff;
+  --gap: 20px;
+  --radius: 18px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Manrope", Arial, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+h1, h2, h3, .logo, .picker__food {
+  font-family: "Bricolage Grotesque", Arial, sans-serif;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ===== Кнопки ===== */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--tomato);
+  color: var(--white);
+  font: 600 1rem "Manrope", Arial, sans-serif;
+  cursor: pointer;
+}
+.btn:hover { filter: brightness(1.08); }
+.btn:focus-visible, .genre:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.btn--small { padding: 8px 18px; }
+.btn--dark  { background: var(--ink); }
+
+/* =====================================================
+   GRID — ПК и планшет (экран шире 767px)
+   Страница = сетка из 3 колонок и 5 строк.
+   Расположение блоков задаётся через grid-template-areas.
+   ===================================================== */
+.page {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;      /* 3 равные колонки */
+  grid-template-areas:
+    "header header header"
+    "hero   hero   picker"
+    "genres genres picker"
+    "features features features"
+    "footer footer footer";
+  gap: var(--gap);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--gap);
+}
+
+/* Привязываем блоки к областям */
+.header   { grid-area: header; }
+.hero     { grid-area: hero; }
+.picker   { grid-area: picker; }
+.genres   { grid-area: genres; }
+.features { grid-area: features; }
+.footer   { grid-area: footer; }
+
+/* ===== Шапка — FLEXBOX (в строку, логотип слева, меню справа) ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo { font-size: 1.6rem; font-weight: 800; }
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* ===== Hero ===== */
+.hero {
+  background: var(--ink);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+}
+.hero h1 { font-size: 2.6rem; line-height: 1.1; font-weight: 800; }
+.hero p  { max-width: 46ch; opacity: .85; }
+
+/* ===== Блок результата (билет) ===== */
+.picker {
+  background: var(--ticket);
+  border-radius: var(--radius);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  border-left: 6px dashed var(--ink);
+}
+.picker__label { font-weight: 600; }
+.picker__genre { font-size: 1.1rem; }
+.picker__food  { font-size: 2.2rem; font-weight: 800; line-height: 1.1; margin-bottom: 12px; }
+
+/* ===== Жанры — вложенный GRID ===== */
+.genres {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+.genres h2 { margin-bottom: 16px; }
+.genres__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+.genre {
+  padding: 18px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: transparent;
+  color: var(--ink);
+  font: 600 1rem "Manrope", Arial, sans-serif;
+  cursor: pointer;
+}
+.genre:hover, .genre.is-active { background: var(--ink); color: var(--ticket); }
+
+/* ===== Возможности — GRID на 3 колонки ===== */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.card h3 { margin-bottom: 8px; }
+
+/* ===== Подвал ===== */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+  font-size: .9rem;
+  opacity: .7;
+}
+
+/* =====================================================
+   MEDIA: ПЛАНШЕТ (768–1024px) — остаётся GRID,
+   но на 2 колонки
+   ===================================================== */
+@media (max-width: 1024px) {
+  .page {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "header header"
+      "hero   hero"
+      "genres picker"
+      "features features"
+      "footer footer";
+  }
+  .hero h1 { font-size: 2.2rem; }
+  .features { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+/* =====================================================
+   MEDIA: ТЕЛЕФОН (до 767px) — GRID заменяется на FLEXBOX
+   Всё выстраивается в одну колонку.
+   ===================================================== */
+@media (max-width: 767px) {
+  .page {
+    display: flex;            /* вместо grid */
+    flex-direction: column;   /* блоки друг под другом */
+    padding: 14px;
+    gap: 14px;
+  }
+
+  /* grid-area на flex-элементах не работает — порядок задаём через order */
+  .header   { order: 1; flex-direction: column; gap: 10px; }
+  .hero     { order: 2; padding: 28px 20px; }
+  .picker   { order: 3; border-left: 0; border-top: 6px dashed var(--ink); }
+  .genres   { order: 4; padding: 20px; }
+  .features { order: 5; display: flex; flex-direction: column; }
+  .footer   { order: 6; flex-direction: column; align-items: center; gap: 4px; }
+
+  .nav { gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .hero h1 { font-size: 1.8rem; }
+  .picker__food { font-size: 1.8rem; }
+
+  /* жанры в 2 колонки на узком экране */
+  .genres__list { grid-template-columns: 1fr 1fr; }
+}

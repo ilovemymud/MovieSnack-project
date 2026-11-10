@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <!-- Без этого тега media-запросы на телефоне НЕ работают -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MovieSnack — еда под фильм</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Главный контейнер: на ПК/планшете это GRID, на телефоне — FLEXBOX -->
+  <div class="page">
+
+    <header class="header">
+      <a class="logo" href="#">MovieSnack</a>
+      <nav class="nav">
+        <a href="#genres">Жанры</a>
+        <a href="#features">Возможности</a>
+        <a class="btn btn--small" href="#">Войти</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1>Выбери жанр — получи перекус к фильму</h1>
+      <p>Мультфильм — мармелад, хоррор — стейк. Случайный подбор еды под настроение картины.</p>
+      <a class="btn" href="#genres">Подобрать еду</a>
+    </section>
+
+    <aside class="picker" aria-live="polite">
+      <p class="picker__label">Сегодня к фильму</p>
+      <p class="picker__genre" id="resultGenre">Жанр не выбран</p>
+      <p class="picker__food" id="resultFood">Нажми на жанр</p>
+      <button class="btn btn--dark" id="againBtn" type="button">Ещё вариант</button>
+    </aside>
+
+    <section class="genres" id="genres">
+      <h2>Жанры</h2>
+      <!-- Вложенный Grid: карточки сами подбирают число колонок -->
+      <div class="genres__list">
+        <button class="genre" data-genre="Мультфильмы" type="button">Мультфильмы</button>
+        <button class="genre" data-genre="Хоррор" type="button">Хоррор</button>
+        <button class="genre" data-genre="Комедия" type="button">Комедия</button>
+        <button class="genre" data-genre="Драма" type="button">Драма</button>
+        <button class="genre" data-genre="Фантастика" type="button">Фантастика</button>
+        <button class="genre" data-genre="Боевик" type="button">Боевик</button>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <article class="card">
+        <h3>Гость</h3>
+        <p>Смотрит жанры, получает случайную еду и жмёт «Ещё вариант» без перезагрузки.</p>
+      </article>
+      <article class="card">
+        <h3>Пользователь</h3>
+        <p>Ищет фильм по названию, ведёт избранное и историю подборов, оценивает пары.</p>
+      </article>
+      <article class="card">
+        <h3>Администратор</h3>
+        <p>Управляет жанрами, блюдами и связями «жанр — еда», смотрит статистику.</p>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <p>MovieSnack · СДП-ПИ-241</p>
+      <p>Frontend · Backend · Тестирование</p>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
