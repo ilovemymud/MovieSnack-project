@@ -1,0 +1,294 @@
+/* ===== Базовые настройки ===== */
+:root {
+  --ink: #1b1f3b;        /* тёмный синий — кинозал */
+  --ticket: #f2c14e;     /* жёлтый — билет */
+  --tomato: #e4572e;     /* акцент — кнопки */
+  --paper: #eef1f8;      /* фон страницы */
+  --white: #ffffff;
+  --gap: 20px;
+  --radius: 18px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Manrope", Arial, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+h1, h2, h3, .logo, .picker__food {
+  font-family: "Bricolage Grotesque", Arial, sans-serif;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ===== Кнопки ===== */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--tomato);
+  color: var(--white);
+  font: 600 1rem "Manrope", Arial, sans-serif;
+  cursor: pointer;
+}
+.btn:hover { filter: brightness(1.08); }
+.btn:focus-visible, .genre:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.btn--small { padding: 8px 18px; }
+.btn--dark  { background: var(--ink); }
+
+/* =====================================================
+   GRID — ПК и планшет (экран шире 767px)
+   Страница = сетка из 3 колонок и 5 строк.
+   Расположение блоков задаётся через grid-template-areas.
+   ===================================================== */
+.page {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;      /* 3 равные колонки */
+  grid-template-areas:
+    "header header header"
+    "hero   hero   picker"
+    "genres genres picker"
+    "features features features"
+    "footer footer footer";
+  gap: var(--gap);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--gap);
+}
+
+/* Привязываем блоки к областям */
+.header   { grid-area: header; }
+.hero     { grid-area: hero; }
+.picker   { grid-area: picker; }
+.genres   { grid-area: genres; }
+.features { grid-area: features; }
+.footer   { grid-area: footer; }
+
+/* ===== Шапка — FLEXBOX (в строку, логотип слева, меню справа) ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo { font-size: 1.6rem; font-weight: 800; }
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* ===== Hero ===== */
+.hero {
+  background: var(--ink);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+}
+.hero h1 { font-size: 2.6rem; line-height: 1.1; font-weight: 800; }
+.hero p  { max-width: 46ch; opacity: .85; }
+
+/* ===== Блок результата (билет) ===== */
+.picker {
+  background: var(--ticket);
+  border-radius: var(--radius);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  border-left: 6px dashed var(--ink);
+}
+.picker__label { font-weight: 600; }
+.picker__genre { font-size: 1.1rem; }
+.picker__food  { font-size: 2.2rem; font-weight: 800; line-height: 1.1; margin-bottom: 12px; }
+
+/* ===== Жанры — вложенный GRID ===== */
+.genres {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+.genres h2 { margin-bottom: 16px; }
+.genres__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+.genre {
+  padding: 18px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: transparent;
+  color: var(--ink);
+  font: 600 1rem "Manrope", Arial, sans-serif;
+  cursor: pointer;
+}
+.genre:hover, .genre.is-active { background: var(--ink); color: var(--ticket); }
+
+/* ===== Возможности — GRID на 3 колонки ===== */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.card h3 { margin-bottom: 8px; }
+
+/* ===== Подвал ===== */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+  font-size: .9rem;
+  opacity: .7;
+}
+
+/* =====================================================
+   MEDIA: ПЛАНШЕТ (768–1024px) — остаётся GRID,
+   но на 2 колонки
+   ===================================================== */
+@media (max-width: 1024px) {
+  .page {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "header header"
+      "hero   hero"
+      "genres picker"
+      "features features"
+      "footer footer";
+  }
+  .hero h1 { font-size: 2.2rem; }
+  .features { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+/* =====================================================
+   MEDIA: ТЕЛЕФОН (до 767px) — GRID заменяется на FLEXBOX
+   Всё выстраивается в одну колонку.
+   ===================================================== */
+@media (max-width: 767px) {
+  .page {
+    display: flex;            /* вместо grid */
+    flex-direction: column;   /* блоки друг под другом */
+    padding: 14px;
+    gap: 14px;
+  }
+
+  /* grid-area на flex-элементах не работает — порядок задаём через order */
+  .header   { order: 1; flex-direction: column; gap: 10px; }
+  .hero     { order: 2; padding: 28px 20px; }
+  .picker   { order: 3; border-left: 0; border-top: 6px dashed var(--ink); }
+  .genres   { order: 4; padding: 20px; }
+  .features { order: 5; display: flex; flex-direction: column; }
+  .footer   { order: 6; flex-direction: column; align-items: center; gap: 4px; }
+
+  .nav { gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .hero h1 { font-size: 1.8rem; }
+  .picker__food { font-size: 1.8rem; }
+
+  /* жанры в 2 колонки на узком экране */
+  .genres__list { grid-template-columns: 1fr 1fr; }
+}
+
+/* ===== Блок авторизации в шапке ===== */
+.nav__auth { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+/* =====================================================
+   ВНУТРЕННИЕ СТРАНИЦЫ (вход, поиск, избранное, история, админка)
+   ===================================================== */
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  max-width: 1200px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: var(--gap);
+}
+.wrap > .footer { margin-top: auto; }
+
+.panel { background: var(--white); border-radius: var(--radius); padding: 28px; }
+.panel h1, .panel h2 { margin-bottom: 16px; }
+.muted { opacity: .65; }
+.hint  { margin-top: 12px; font-size: .9rem; opacity: .75; }
+.hint a { text-decoration: underline; }
+.empty { opacity: .7; padding: 8px 0; list-style: none; }
+
+/* Формы */
+.auth { width: 100%; max-width: 440px; margin: 0 auto; }
+.form { display: flex; flex-direction: column; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 6px; font-weight: 600; }
+.field input, .input {
+  padding: 12px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+}
+.field input:focus-visible, .input:focus-visible { outline: 3px solid var(--ticket); }
+.field__error { min-height: 1.2em; color: var(--tomato); font-size: .9rem; font-weight: 400; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 16px; }
+.toolbar .input { flex: 1 1 200px; }
+
+/* Доп. варианты кнопок */
+.btn--ghost  { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
+.btn--danger { background: transparent; color: var(--tomato); border: 2px solid var(--tomato); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* Оценка и действия под результатом */
+.picker__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 4px; }
+.stars { display: flex; gap: 2px; }
+.stars button { padding: 0 2px; border: 0; background: none; color: rgba(27, 31, 59, .3); font-size: 1.6rem; cursor: pointer; }
+.stars button.is-on { color: var(--tomato); }
+
+/* Поиск: GRID на 2 колонки (список + результат) */
+.search { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--gap); align-items: start; }
+.movies { display: flex; flex-direction: column; gap: 10px; list-style: none; }
+.movie {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 12px 14px; background: var(--paper); border-radius: 14px;
+}
+.result__food { margin: 8px 0 16px; font: 800 2rem/1.1 "Bricolage Grotesque", Arial, sans-serif; }
+
+/* Избранное: адаптивная сетка карточек */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--gap); }
+.cards .card { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; background: var(--paper); }
+
+/* Таблицы */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--paper); vertical-align: middle; }
+th { font-weight: 600; opacity: .7; }
+
+/* Админка */
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.tab { padding: 10px 18px; border: 2px solid var(--ink); border-radius: 999px; background: transparent; color: var(--ink); font: 600 1rem "Manrope", Arial, sans-serif; cursor: pointer; }
+.tab.is-active { background: var(--ink); color: var(--ticket); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.stat { display: flex; flex-direction: column; gap: 4px; padding: 16px; background: var(--paper); border-radius: 14px; }
+.stat strong { font: 800 1.8rem "Bricolage Grotesque", Arial, sans-serif; }
+
+/* Уведомления */
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 10; padding: 12px 20px; border-radius: 999px; background: var(--ink); color: var(--white); }
+.toast--error { background: var(--tomato); }
+
+@media (max-width: 767px) {
+  .wrap { padding: 14px; }
+  .panel { padding: 20px; }
+  .search { display: flex; flex-direction: column; }  /* GRID → FLEX на телефоне */
+  .toolbar .btn { flex: 1 1 100%; }
+}

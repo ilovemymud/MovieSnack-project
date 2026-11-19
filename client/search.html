@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Поиск фильма — MovieSnack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="header" id="siteHeader"></header>
+    <main class="search">
+      <section class="panel">
+        <h1>Поиск фильма</h1>
+        <form class="toolbar" id="searchForm">
+          <input class="input" id="q" placeholder="Название фильма" aria-label="Название фильма" maxlength="80">
+          <button class="btn" type="submit">Найти</button>
+        </form>
+        <ul class="movies" id="movies"></ul>
+      </section>
+      <section class="panel result" id="result">
+        <h2>Еда к фильму</h2>
+        <p class="empty">Найдите фильм и нажмите «Подобрать еду»</p>
+      </section>
+    </main>
+    <footer class="footer"><p>MovieSnack · СДП-ПИ-241</p></footer>
+  </div>
+  <script src="js/mock.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/pages/search.js"></script>
+</body>
+</html>
